@@ -1,7 +1,9 @@
 import 'package:quizapp/question_screen.dart';
+import 'package:quizapp/result_screen.dart';
 
 import './start_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/data/questions.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -13,18 +15,40 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  Widget? activeScreen;
-
-  @override
-  void initState() {
-    activeScreen = StartScreen(switchScreen);
-    super.initState();
-  }
-
+  var activeScreen = 'start-screen';
+  List<String> selectedAnswers = [];
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionScrean();
+      activeScreen = 'quesstion-screen';
     });
+  }
+
+  void choseAnswer(String answer) {
+    selectedAnswers.add(answer);
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = 'result-screen';
+      });
+    }
+  }
+
+  void restartQuiz() {
+    setState(() {
+      activeScreen = 'start-screen';
+      selectedAnswers = [];
+    });
+  }
+
+  Widget choseScreen() {
+    if (activeScreen == "start-screen") {
+      return StartScreen(switchScreen);
+    } else if (activeScreen == "result-screen") {
+      return ResultScreen(
+        choseAnswere: selectedAnswers,
+      );
+    } else {
+      return QuestionScrean(onSelectAnswer: choseAnswer);
+    }
   }
 
   @override
@@ -32,17 +56,16 @@ class _QuizState extends State<Quiz> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 44, 11, 144),
-                  Color.fromARGB(255, 165, 119, 246)
-                ]),
-          ),
-          child: activeScreen,
-        ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.fromARGB(255, 44, 11, 144),
+                    Color.fromARGB(255, 165, 119, 246)
+                  ]),
+            ),
+            child: choseScreen()),
       ),
     );
   }
