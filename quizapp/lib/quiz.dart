@@ -45,6 +45,7 @@ class _QuizState extends State<Quiz> {
     } else if (activeScreen == "result-screen") {
       return ResultScreen(
         choseAnswere: selectedAnswers,
+        restart: restartQuiz,
       );
     } else {
       return QuestionScrean(onSelectAnswer: choseAnswer);
