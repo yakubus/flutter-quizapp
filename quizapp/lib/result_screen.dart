@@ -41,12 +41,11 @@ class ResultScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                    "$numCorrectQuestion poprawnych odpowiedzi na $numTotalQuestions pytań",
+                Text("$numCorrectQuestion / $numTotalQuestions ",
                     style: GoogleFonts.lato(
-                      color: Colors.white,
+                      color: Colors.green,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 70,
                     )),
                 const SizedBox(
                   height: 30,

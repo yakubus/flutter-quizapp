@@ -16,7 +16,7 @@ class AnswerButton extends StatelessWidget {
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
           //minimumSize: const Size.fromHeight(50),
-          side: BorderSide(
+          side: const BorderSide(
             color: Colors.white,
             width: 1,
           ),
